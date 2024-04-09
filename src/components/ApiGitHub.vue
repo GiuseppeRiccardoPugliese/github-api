@@ -44,6 +44,7 @@ export default {
 </script>
 
 <template>
+    <!-- NAV -->
     <nav class="navbar bg-light">
         <div class="container-fluid">
             <a class="navbar-brand"><strong>GitHub Api</strong></a>
@@ -60,6 +61,7 @@ export default {
         </div>
     </nav>
 
+    <!-- CARD REPO -->
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div v-for="repo in repositories" class="card m-2" style="width: 18rem; min-height: 350px;">
