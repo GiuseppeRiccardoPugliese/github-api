@@ -57,8 +57,8 @@ export default {
         <div class="container-fluid">
             <a class="navbar-brand"><strong>GitHub Api</strong></a>
             <div class="search_input d-flex">
-                <input v-model="searchInput" class="form-control mx-1" type="search" placeholder="Search"
-                    aria-label="Search">
+                <input @keyup.enter="getRepo()" v-model="searchInput" class="form-control mx-1" type="search"
+                    placeholder="Search" aria-label="Search">
                 <select class="mx-1" name="seleziona" id="seleziona">
                     <option disabled>Seleziona un'opzione</option>
                     <option value="repositories" selected>Repositories</option>
@@ -73,11 +73,19 @@ export default {
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div v-for="repo in repositories" class="card m-2" style="width: 18rem; min-height: 350px;">
-                <img :src="repo.owner ? repo.owner.avatar_url : repo.avatar_url" class="card-img-top" alt="repo_img">
+                <div class="img_container d-flex justify-content-center">
+                    <img :src="repo.owner ? repo.owner.avatar_url : repo.avatar_url" class="card-img-top" alt="repo_img"
+                        style="width: 10rem; border-radius: 10px;">
+                </div>
                 <div class="card-body h-100 d-flex flex-column">
                     <h5 class="card-title">{{ repo.full_name ? repo.full_name : repo.login }}</h5>
                     <h6 v-if="repo.type"> Profilo: {{ repo.type == 'User' ? 'Utente' : 'Organizzazione' }}</h6>
                     <p class="card-text">{{ repo.description }}</p>
+                    <span class="text-center border-1 border-bottom py-2"><i class="fa-solid fa-star px-1"></i>{{
+                        repo.stargazers_count }}</span>
+                    <span class="text-center py-2"><i class="fa-solid fa-circle-exclamation px-1"></i>{{
+                        repo.open_issues
+                        }}</span>
                     <a :href="repo.html_url" class="btn btn-primary mt-auto">{{ repo.type ? 'Vai al profilo' :
                         'Vai alla repo' }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
