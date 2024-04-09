@@ -1,12 +1,9 @@
 <script>
 import ApiGitHub from './components/ApiGitHub.vue';
-import AppHeader from './components/AppHeader.vue';
-
 
 export default {
   components: {
     ApiGitHub,
-    AppHeader,
   },
   data() {
     return {
@@ -18,7 +15,6 @@ export default {
 </script>
 
 <template>
-  <AppHeader />
   <ApiGitHub />
 </template>
 
