@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import config from "../config.js";
 
 export default {
     name: 'ApiGitHub',
@@ -7,6 +8,7 @@ export default {
         return {
             repositories: [], //ARRAY PER LE REPO
             searchInput: '',
+            token: config.token,
         };
     },
     methods: {
@@ -20,7 +22,7 @@ export default {
                     q: this.searchInput,
                 },
                 headers: {
-                    "Authorization": `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`,
+                    "Authorization": `Bearer ${this.token}`,
                     "X-GitHub-Api-Version": "2022-11-28"
                 }
             };
