@@ -58,7 +58,6 @@ export default {
   height: 100%;
   z-index: -1;
   background: linear-gradient(to right, #b2a8fc, #6aaee2);
-
 }
 
 //Stili per la freccia
