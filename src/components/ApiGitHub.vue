@@ -97,6 +97,10 @@ export default {
         {{ errorMessage }}
     </div>
 
+    <!-- Se non c'e' nessuna ricerca allora: -->
+    <h1 v-if="this.repositories.length == 0" class="text-center">Non esiste nessun risultato correlato alla ricerca</h1>
+
+
     <!-- CARD REPO -->
     <div class="container">
         <div class="row justify-content-center mt-4">
