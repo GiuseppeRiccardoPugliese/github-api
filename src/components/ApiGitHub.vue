@@ -9,10 +9,28 @@ export default {
             repositories: [], //ARRAY PER LE REPO
             searchInput: '',
             token: config.token,
+            showErrorMessage: false, // Mostra il messaggio di errore
+            errorMessage: '', // Testo del messaggio di errore
         };
     },
     methods: {
         getRepo() {
+            //VALIDAZIONE
+            if (!this.searchInput) {
+                this.errorMessage = 'Il campo di ricerca è obbligatorio';
+                this.showErrorMessage = true;
+                return;
+            }
+            if (this.searchInput.length < 3) {
+                this.errorMessage = 'Il campo di ricerca deve essere almeno di 3 caratteri';
+                this.showErrorMessage = true;
+                return;
+            }
+            else {
+                this.errorMessage = '';
+                this.showErrorMessage = false;
+            }
+
             const selectedTypology = document.getElementById('seleziona').value; //Variabile per le options
 
             let url;
@@ -43,6 +61,8 @@ export default {
                 .catch((error) => {
                     console.error("Error fetching data from first API:", error);
                 });
+
+
         }
     },
     mounted() {
@@ -66,10 +86,16 @@ export default {
                     <option value="repositories" selected>Repositories</option>
                     <option value="utenti_organizzazioni">Utenti/Organizzazioni</option>
                 </select>
+
                 <button @click="getRepo()" class="btn btn-outline-success" type="submit">CERCA</button>
             </div>
         </div>
     </nav>
+
+    <!-- Messaggio di errore -->
+    <div class="error-message" v-if="showErrorMessage">
+        {{ errorMessage }}
+    </div>
 
     <!-- CARD REPO -->
     <div class="container">
@@ -101,6 +127,18 @@ export default {
 </template>
 
 <style scoped lang="scss">
+//Messaggio Errore Validazione
+.error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffcccc;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 999;
+}
+
 //Card w/scroll-bar
 .repo_card {
     background: linear-gradient(to bottom right, #4e9df4, #8a3ab9);
