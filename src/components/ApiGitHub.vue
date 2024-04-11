@@ -74,20 +74,23 @@ export default {
     <!-- CARD REPO -->
     <div class="container">
         <div class="row justify-content-center mt-4">
-            <div v-for="repo in repositories" class="card m-2" style="width: 18rem; min-height: 350px;">
-                <div class="img_container d-flex justify-content-center">
-                    <img :src="repo.owner ? repo.owner.avatar_url : repo.avatar_url" class="card-img-top" alt="repo_img"
-                        style="width: 10rem; border-radius: 10px;">
+            <div v-for="repo in repositories" class="card m-3 shadow" :class="!repo.type ? 'repo_card' : 'user_card'"
+                style="width: 18rem; min-height: 350px;">
+                <div class="img_container d-flex justify-content-center align-items-center">
+                    <img :src="repo.owner ? repo.owner.avatar_url : repo.avatar_url" class="card-img-top rounded-circle"
+                        alt="repo_img">
                 </div>
                 <div class="card-body h-100 d-flex flex-column">
                     <h5 class="card-title">{{ repo.full_name ? repo.full_name : repo.login }}</h5>
                     <h6 v-if="repo.type"> Profilo: {{ repo.type == 'User' ? 'Utente' : 'Organizzazione' }}</h6>
-                    <p class="card-text">{{ repo.description }}</p>
-                    <span class="text-center border-1 border-bottom py-2"><i class="fa-solid fa-star px-1"></i>{{
-                        repo.stargazers_count }}</span>
-                    <span class="text-center py-2"><i class="fa-solid fa-circle-exclamation px-1"></i>{{
-                        repo.open_issues
-                        }}</span>
+                    <p class="card-text overflow-auto">{{ repo.description }}</p>
+                    <span v-if="!repo.type" class="text-center border-1 border-bottom py-2"><i
+                            class="fa-solid fa-star px-1"></i>{{
+                                repo.stargazers_count }}</span>
+                    <span v-if="!repo.type" class="text-center py-2"><i
+                            class="fa-solid fa-circle-exclamation px-1"></i>{{
+                                repo.open_issues
+                            }}</span>
                     <a :href="repo.html_url" class="btn btn-primary mt-auto">{{ repo.type ? 'Vai al profilo' :
                         'Vai alla repo' }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                 </div>
@@ -97,4 +100,68 @@ export default {
 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+//Card w/scroll-bar
+.repo_card {
+    background: linear-gradient(to bottom right, #4e9df4, #8a3ab9);
+}
+
+.user_card {
+    background: linear-gradient(to right, #ff9ff3, #ff6bcb);
+}
+
+.card {
+
+    .img_container {
+        width: 100%;
+        height: 100%;
+        padding-top: 10px;
+
+        img {
+            width: 10rem;
+        }
+    }
+
+    .overflow-auto {
+        overflow-y: scroll;
+        max-height: 80px;
+    }
+
+    // .overflow-auto::-webkit-scrollbar {
+    //     display: none;
+    // }
+
+    .overflow-auto::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .overflow-auto::-webkit-scrollbar-track {
+        background-color: #f5f5f5;
+    }
+
+    .overflow-auto::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+        border: 2px solid #f5f5f5;
+    }
+
+    .overflow-auto::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa;
+    }
+
+    .overflow-auto::-webkit-scrollbar-thumb:active {
+        background-color: #888;
+    }
+
+}
+
+//Card shadow
+.card.shadow {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card.shadow:hover {
+    transform: scale(1.05);
+}
+</style>
